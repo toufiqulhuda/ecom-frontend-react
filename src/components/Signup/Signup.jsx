@@ -36,6 +36,9 @@ const Singup = () => {
             // window.localStorage.setItem("token",response.data.token)
             // window.localStorage.setItem("userid",response.data.user._id)
             // window.localStorage.setItem("isAuthenticated",true)
+            setEmail("")
+            setName("")
+            setPassword("")
             toast.success("Signup Success!");
             setTimeout(() => { navigate("/login") }, 2000);
           }else{

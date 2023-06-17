@@ -3,6 +3,7 @@ import "./App.css"
 import { BrowserRouter as Router, Routes , Route } from "react-router-dom"
 import Header from "./common/header/Header"
 import Pages from "./pages/Pages"
+import AddProduct from "./pages/AddProduct"
 import LoginPage from "./pages/Login"
 // import Data from "./components/Data"
 import Cart from "./common/Cart/Cart"
@@ -20,40 +21,41 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [shopItems, setshopItems] = useState([])
   const [productItems, setproductItems] = useState([])
-  const [topCataItems, settopCataItems] = useState([])
-  const [newArrivalsItems, setnewArrivalsItems] = useState([])
-  const [discountItems, setdiscountItems] = useState([])
+  // const [topCataItems, settopCataItems] = useState([])
+  // const [newArrivalsItems, setnewArrivalsItems] = useState([])
+  // const [discountItems, setdiscountItems] = useState([])
 
   /* Shop Items call API */
   const shopItemsList = ()=>{
-    return axios.get(`${server}/product?section=shops`).then((res) => setshopItems(res.data) )
+    return axios.get(`${server}/product?section=shops`).then((res) => setshopItems(res.data) ).catch(err => console.log(err))
   }
    /* Product Items call API */
   const productItemsList = ()=>{
-    return axios.get(`${server}/product?section=flash_deals`).then((res) => setproductItems(res.data) )
+    return axios.get(`${server}/product?section=flash_deals`).then((res) => setproductItems(res.data) ).catch(err => console.log(err))
   }
-  /* TOP Items call API */
+  /*
    const topCataItemsList = ()=>{
-    return axios.get(`${server}/product?section=top_items`).then((res) => settopCataItems(res.data) )
+    return axios.get(`${server}/product?section=top_categories`).then((res) => settopCataItems(res.data) )
   }
-  /* new Items call API */
+
   const newArrivalsItemsList = ()=>{
-    return axios.get(`${server}/product?section=new`).then((res) => setnewArrivalsItems(res.data) )
+    return axios.get(`${server}/product?section=new_arrivals`).then((res) => setnewArrivalsItems(res.data) )
   }
-  /* new Items call API */
+
   const discountItemsList = ()=>{
-    return axios.get(`${server}/product?section=discount`).then((res) => setdiscountItems(res.data) )
-  }
+    return axios.get(`${server}/product?section=discounts`).then((res) => setdiscountItems(res.data) )
+  }*/
   useEffect(()=>{
     shopItemsList()
     productItemsList()
-    topCataItemsList()
-    newArrivalsItemsList()
-    discountItemsList()
-  })
+    // topCataItemsList()
+    // newArrivalsItemsList()
+    // discountItemsList()
+  }, [])
  
 
   const  isAuthenticated  = window.localStorage.getItem("isAuthenticated");
+  const  token  = window.localStorage.getItem("token");
   //Step 1 :
 
 
@@ -86,12 +88,13 @@ function App() {
       <Router>
         <Header CartItem={CartItem} />
         <Routes>
-          <Route path='/' exact element={<Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems} />} />
+          <Route path='/' exact element={<Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems}  />} /> {/* topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems}*/}
           <Route path='/shop' exact element={ <Shop addToCart={addToCart} shopItems={shopItems}/>}/>
           <Route path='/user' exact element={ <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
           <Route path='/cart' exact element={<Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
           <Route path='/login' exact element={!isAuthenticated ? <LoginPage CartItem={CartItem} /> : <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
           <Route path='/register' exact element={<SignupPage CartItem={CartItem} />}/>
+          <Route path='/add-product' exact element={isAuthenticated ? <AddProduct CartItem={CartItem} token={token} /> : <LoginPage CartItem={CartItem} />}/>
         </Routes>
         <Footer />
       </Router>

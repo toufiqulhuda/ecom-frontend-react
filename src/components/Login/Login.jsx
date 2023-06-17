@@ -1,13 +1,13 @@
 import { React, useState } from "react";
 // import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../styles/styles";
-import { useNavigate,Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
 import { ToastContainer,toast } from "react-toastify";
 
 const Login = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isDisabled, setDisabled] = useState(false);
@@ -31,8 +31,12 @@ const Login = () => {
             window.localStorage.setItem("token",response.data.token)
             window.localStorage.setItem("userid",response.data.user._id)
             window.localStorage.setItem("isAuthenticated",true)
+            setEmail("")
+            setPassword("")
+            // setDisabled("")
+            // setBtn("")
             toast.success("Login Success!");
-            setTimeout(() => { navigate("/") }, 2000);
+            setTimeout(() => { window.location.reload(true) }, 2000);
           }else{
             toast.error(response.data.message);
             setBtn("btn-primary")
