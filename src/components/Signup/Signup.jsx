@@ -64,7 +64,7 @@ const Singup = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="form-label"
               >
                 Full Name
               </label>
@@ -76,7 +76,7 @@ const Singup = () => {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="form-control"
                 />
               </div>
             </div>
@@ -84,7 +84,7 @@ const Singup = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="form-label"
               >
                 Email address
               </label>
@@ -96,7 +96,7 @@ const Singup = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="form-control"
                 />
               </div>
             </div>
@@ -104,7 +104,7 @@ const Singup = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="form-label"
               >
                 Password
               </label>
@@ -116,7 +116,7 @@ const Singup = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="form-control"
                 />
                 {/* {visible ? (
                   <AiOutlineEye
@@ -137,7 +137,7 @@ const Singup = () => {
             <div>
               <label
                 htmlFor="avatar"
-                className="block text-sm font-medium text-gray-700"
+                className="form-label"
               ></label>
               <div className="mt-2 flex items-center">
                 <span className="inline-block h-8 w-8 rounded-full overflow-hidden">

@@ -61,7 +61,7 @@ const Login = () => {
             <div>
               <label
                 htmlFor="email"
-                className="from-label"
+                className="form-label"
               >
                 Email address
               </label>
@@ -73,14 +73,14 @@ const Login = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="from-control"
+                  className="form-control"
                 />
               </div>
             </div>
             <div>
               <label
                 htmlFor="password"
-                className="from-label"
+                className="form-label"
               >
                 Password
               </label>
@@ -93,7 +93,7 @@ const Login = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="from-control"
+                  className="form-control"
                 />
                 {/* {visible ? (
                   <AiOutlineEye
