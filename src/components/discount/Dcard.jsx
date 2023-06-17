@@ -13,6 +13,10 @@ const Dcard = () => {
     slidesToScroll: 1,
     autoplay: true,
   }
+  const imageWH = {
+    width: "139px",
+    height: "139px"
+  }
   return (
     <>
       <Slider {...settings}>
@@ -21,7 +25,7 @@ const Dcard = () => {
             <>
               <div className='box product' key={index}>
                 <div className='img'>
-                  <img src={value.cover} alt='' width='100%' />
+                  <img src={value.cover} alt='' style={imageWH} />
                 </div>
                 <h4>{value.name}</h4>
                 <span>{value.price}</span>

@@ -12,6 +12,10 @@ const TopCart = () => {
     slidesToScroll: 1,
     autoplay: true,
   }
+  const imageWH = {
+    width: "345px",
+    height: "116px"
+  }
   return (
     <>
       <Slider {...settings}>
@@ -24,7 +28,7 @@ const TopCart = () => {
                   <span className='tright'>{value.desc}</span>
                 </div>
                 <div className='img'>
-                  <img src={value.cover} alt='' />
+                  <img src={value.cover} alt='' style={imageWH} />
                 </div>
               </div>
             </>
