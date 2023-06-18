@@ -64,10 +64,9 @@ function App() {
 
   //Step 4 :
   const addToCart = (product) => {
-    // if hamro product alredy cart xa bhane  find garna help garxa
-    const productExit = CartItem.find((item) => item.id === product.id)
+    const productExit = CartItem.find((item) => item._id === product._id)
     if (productExit) {
-      setCartItem(CartItem.map((item) => (item.id === product.id ? { ...productExit, qty: productExit.qty + 1 } : item)))
+      setCartItem(CartItem.map((item) => (item._id === product._id ? { ...productExit, qty: productExit.qty + 1 } : item)))
     } else {
       setCartItem([...CartItem, { ...product, qty: 1 }])
     }
@@ -75,11 +74,11 @@ function App() {
 
   // Stpe: 6
   const decreaseQty = (product) => {
-      const productExit = CartItem.find((item) => item.id === product.id)
+      const productExit = CartItem.find((item) => item._id === product._id)
       if (productExit.qty === 1) {
-        setCartItem(CartItem.filter((item) => item.id !== product.id))
+        setCartItem(CartItem.filter((item) => item._id !== product._id))
       } else {
-        setCartItem(CartItem.map((item) => (item.id === product.id ? { ...productExit, qty: productExit.qty - 1 } : item)))
+        setCartItem(CartItem.map((item) => (item._id === product._id ? { ...productExit, qty: productExit.qty - 1 } : item)))
       }
   }
 

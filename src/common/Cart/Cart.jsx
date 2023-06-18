@@ -42,11 +42,12 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
                       <button className='incCart' onClick={() => addToCart(item)}>
                         <i className='fa-solid fa-plus'></i>
                       </button>
+                      {item.qty}
                       <button className='desCart' onClick={() => decreaseQty(item)}>
                         <i className='fa-solid fa-minus'></i>
                       </button>
                     </div>
-                  </div>
+                 </div>
 
                   <div className='cart-item-price'></div>
                 </div>

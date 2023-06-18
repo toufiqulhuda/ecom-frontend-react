@@ -57,7 +57,7 @@ let [Btn, setBtn] = useState("btn-primary");
             setDiscount("")
             setCateName("")
             setDrand("")
-            setSection([])
+            setSection(sectionOptions[0].value)
             
             toast.success("Product added Successfully");
             setTimeout(() => { window.location.href = '/add-product' }, 2000);

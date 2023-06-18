@@ -114,7 +114,7 @@ const Login = () => {
                 )} */}
               </div>
             </div>
-            <div className="d-flex">
+            <div className="d_flex">
               <div className={`${styles.noramlFlex}`}>
                 <input
                   type="checkbox"
