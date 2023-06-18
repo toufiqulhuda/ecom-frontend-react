@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 // import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import styles from "../styles/styles";
+// import styles from "../styles/styles";
 import { useNavigate, Link } from "react-router-dom";
 // import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
@@ -169,7 +169,7 @@ const Singup = () => {
                 Sign Up Now
               </button>
             </div>
-            <div className={`${styles.noramlFlex} w-full`}>
+            <div className="d-flex">
               <h4>Already have an account?</h4>
               <Link to="/login" className="text-blue-600 pl-2">
                 Sign In

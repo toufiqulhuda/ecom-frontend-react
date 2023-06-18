@@ -64,6 +64,11 @@
   border: 1px solid rgb(3 0 71 / 9%);
   color: #e94560;
 }
+.incCart:hover,.desCart:hover {
+  cursor: pointer;
+  background-color: #e94560;
+  color: #fff;
+}
 .desCart {
   background: #f6f9fc;
 }

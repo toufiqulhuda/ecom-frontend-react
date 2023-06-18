@@ -11,12 +11,12 @@ import Footer from "./common/footer/Footer"
 // import Sdata from "./components/shops/Sdata"
 import Shop  from "./components/shops/Shop"
 import SignupPage from "./pages/SignupPage"
+
 import axios from "axios";
 import { server } from "./server";
 // const Sdata = require("./components/shops/Sdata")
-
-
 import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   const [shopItems, setshopItems] = useState([])
@@ -58,7 +58,7 @@ function App() {
   const  token  = window.localStorage.getItem("token");
   //Step 1 :
 
-
+// const {productItems} = Data
   //Step 2 :
   const [CartItem, setCartItem] = useState([])
 
@@ -95,6 +95,7 @@ function App() {
           <Route path='/login' exact element={!isAuthenticated ? <LoginPage CartItem={CartItem} /> : <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
           <Route path='/register' exact element={<SignupPage CartItem={CartItem} />}/>
           <Route path='/add-product' exact element={isAuthenticated ? <AddProduct CartItem={CartItem} token={token} /> : <LoginPage CartItem={CartItem} />}/>
+          
         </Routes>
         <Footer />
       </Router>

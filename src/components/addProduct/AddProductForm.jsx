@@ -5,7 +5,17 @@ import { server } from "../../server";
 import { ToastContainer,toast } from "react-toastify";
 
 const AddProductForm = ({token}) => {
-    // const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const sectionOptions = [
+    {value: '', text: '--Choose an option--'},
+    {value: 'slider', text: 'Slider'},
+    {value: 'flash_deals', text: 'flash deals'},
+    {value: 'top_categories', text: 'Top Categories'},
+    {value: 'new_arrivals', text: 'New Arrivals'},
+    {value: 'discounts', text: 'Big Discounts'},
+    {value: 'shops', text: 'Shops'}
+  ];
+    
 let [name, setName] = useState("");
 let [desc, setDesc] = useState("");
 let [cover, setCover] = useState("");
@@ -13,7 +23,7 @@ let [price, setPrice] = useState("");
 let [discount, setDiscount] = useState("");
 let [cateName, setCateName] = useState("");
 let [brand, setDrand] = useState("");
-let [section, setSection] = useState("");
+let [section, setSection] = useState(sectionOptions[0].value);
 let [isDisabled, setDisabled] = useState(false);
 let [Btn, setBtn] = useState("btn-primary");
 
@@ -47,11 +57,10 @@ let [Btn, setBtn] = useState("btn-primary");
             setDiscount("")
             setCateName("")
             setDrand("")
-            setSection("")
-            setDisabled("")
+            setSection([])
             
-            toast.success(response.data.message);
-            setTimeout(() => { window.location.reload(true) }, 2000);
+            toast.success("Product added Successfully");
+            setTimeout(() => { window.location.href = '/add-product' }, 2000);
             
           }else{
             toast.error(response.data.message);
@@ -67,149 +76,156 @@ let [Btn, setBtn] = useState("btn-primary");
     
   }
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name" className="form-label">
-          Name
-        </label>
-        <div className="mt-1">
-          <input
-            type="text"
-            name="name"
-            autoComplete="name"
-            required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="form-control"
-          />
+    <>
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name" className="form-label">
+            Name
+          </label>
+          <div className="mt-1">
+            <input
+              type="text"
+              name="name"
+              autoComplete="name"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="form-control"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <label htmlFor="desc" className="form-label">
-          Description
-        </label>
-        <div className="mt-1 relative">
-          <input
-            type="text"
-            name="desc"
-            autoComplete="desc"
-            required
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-            className="form-control"
-          />
+        <div>
+          <label htmlFor="desc" className="form-label">
+            Description
+          </label>
+          <div className="mt-1 relative">
+            <input
+              type="text"
+              name="desc"
+              autoComplete="desc"
+              required
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              className="form-control"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <label htmlFor="cover" className="form-label">
-          Image path
-        </label>
-        <div className="mt-1 relative">
-          <input
-            type="text"
-            name="cover"
-            autoComplete="cover"
-            required
-            value={cover}
-            onChange={(e) => setCover(e.target.value)}
-            className="form-control"
-          />
+        <div>
+          <label htmlFor="cover" className="form-label">
+            Image path
+          </label>
+          <div className="mt-1 relative">
+            <input
+              type="text"
+              name="cover"
+              autoComplete="cover"
+              required
+              value={cover}
+              onChange={(e) => setCover(e.target.value)}
+              className="form-control"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <label htmlFor="price" className="form-label">
-          Price
-        </label>
-        <div className="mt-1 relative">
-          <input
-            type="text"
-            name="price"
-            autoComplete="price"
-            required
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            className="form-control"
-          />
+        <div>
+          <label htmlFor="price" className="form-label">
+            Price
+          </label>
+          <div className="mt-1 relative">
+            <input
+              type="text"
+              name="price"
+              autoComplete="price"
+              required
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              className="form-control"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <label htmlFor="discount" className="form-label">
-          Discount
-        </label>
-        <div className="mt-1 relative">
-          <input
-            type="text"
-            name="discount"
-            autoComplete="discount"
-            required
-            value={discount}
-            onChange={(e) => setDiscount(e.target.value)}
-            className="form-control"
-          />
+        <div>
+          <label htmlFor="discount" className="form-label">
+            Discount
+          </label>
+          <div className="mt-1 relative">
+            <input
+              type="text"
+              name="discount"
+              autoComplete="discount"
+              required
+              value={discount}
+              onChange={(e) => setDiscount(e.target.value)}
+              className="form-control"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <label htmlFor="cateName" className="form-label">
-          Category Name
-        </label>
-        <div className="mt-1 relative">
-          <input
-            type="text"
-            name="cateName"
-            autoComplete="cateName"
-            required
-            value={cateName}
-            onChange={(e) => setCateName(e.target.value)}
-            className="form-control"
-          />
+        <div>
+          <label htmlFor="cateName" className="form-label">
+            Category Name
+          </label>
+          <div className="mt-1 relative">
+            <input
+              type="text"
+              name="cateName"
+              autoComplete="cateName"
+              required
+              value={cateName}
+              onChange={(e) => setCateName(e.target.value)}
+              className="form-control"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <label htmlFor="brand" className="form-label">
-          Brand Name
-        </label>
-        <div className="mt-1 relative">
-          <input
-            type="text"
-            name="brand"
-            autoComplete="brand"
-            required
-            value={brand}
-            onChange={(e) => setDrand(e.target.value)}
-            className="form-control"
-          />
+        <div>
+          <label htmlFor="brand" className="form-label">
+            Brand Name
+          </label>
+          <div className="mt-1 relative">
+            <input
+              type="text"
+              name="brand"
+              autoComplete="brand"
+              required
+              value={brand}
+              onChange={(e) => setDrand(e.target.value)}
+              className="form-control"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <label htmlFor="section" className="form-label">
-          Section to view
-        </label>
-        <div className="mt-1 relative">
-          <select name="section" required className="form-select" aria-label="Default select example" onChange={(e) => setSection(e.target.value)}>
-            <option selected>...</option>
-            <option value="slider">slider</option>
-            <option value="flash_deals">flash deals</option>
-            <option value="top_categories">Top Categories</option>
-            <option value="new_arrivals">New Arrivals</option>
-            <option value="discounts">Big Discounts</option>
-            <option value="shops">Shops</option>
-          </select>
-          
+        <div>
+          <label htmlFor="section" className="form-label">
+            Section to view
+          </label>
+          <div className="mt-1 relative">
+            <select
+              value={section}
+              name="section"
+              required
+              className="form-select"
+              aria-label="Default select example"
+              onChange={(e) => setSection(e.target.value)}
+            >
+              {sectionOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.text}
+                </option>
+              ))}
+              
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <button
-          type="submit"
-          style={{ cursor: "pointer", "margin-top": "5px" }}
-          disabled={isDisabled}
-          className={Btn}
-        >
-          Save Changes
-        </button>
-      </div>
+        <div>
+          <button
+            type="submit"
+            style={{ cursor: "pointer", "margin-top": "5px" }}
+            disabled={isDisabled}
+            className={Btn}
+          >
+            Save Changes
+          </button>
+        </div>
+      </form>
       <ToastContainer />
-    </form>
+    </>
   );
 }
 
