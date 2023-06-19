@@ -2,10 +2,10 @@ import React from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import Ddata from "./Ddata"
+// import Ddata from "./Ddata"
 import "../newarrivals/style.css"
 
-const Dcard = () => {
+const Dcard = ({discountItems}) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -20,7 +20,7 @@ const Dcard = () => {
   return (
     <>
       <Slider {...settings}>
-        {Ddata.map((value, index) => {
+        {discountItems.map((value, index) => {
           return (
             <>
               <div className='box product' key={index}>

@@ -1,7 +1,7 @@
 import React from "react"
 import Dcard from "./Dcard"
 
-const Discount = () => {
+const Discount = ({discountItems}) => {
   return (
     <>
       <section className='Discount background NewArrivals'>
@@ -16,7 +16,7 @@ const Discount = () => {
               <i className='fa-solid fa-caret-right'></i>
             </div>
           </div>
-          <Dcard />
+          <Dcard discountItems={discountItems} />
         </div>
       </section>
     </>

@@ -17,18 +17,17 @@ const LoginPage = ({CartItem}) => {
   
   return (
     <>
-    <div className='flash'>
-      <div className='container'>
-      <div className="box" style={{width: "50%", margin: "0 auto"}}>
-          <div className="product mtop">
-          <Login />  
+      <div className="flash">
+        <div className="container">
+          <div className="box" style={{ width: "50%", margin: "0 auto" }}>
+            <div className="product mtop">
+              <Login />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    
     </>
-  )
+  );
 }
 
 export default LoginPage;

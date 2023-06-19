@@ -16,42 +16,48 @@ import axios from "axios";
 import { server } from "./server";
 // const Sdata = require("./components/shops/Sdata")
 import 'react-toastify/dist/ReactToastify.css';
+import ProductDetails from "./pages/ProductDetails"
+import Page404 from "./pages/Page404"
 
 
 function App() {
+  const [CartItem, setCartItem] = useState([])
   const [shopItems, setshopItems] = useState([])
   const [productItems, setproductItems] = useState([])
-  // const [topCataItems, settopCataItems] = useState([])
-  // const [newArrivalsItems, setnewArrivalsItems] = useState([])
-  // const [discountItems, setdiscountItems] = useState([])
+  const [topCataItems, settopCataItems] = useState([])
+  const [newArrivalsItems, setnewArrivalsItems] = useState([])
+  const [discountItems, setdiscountItems] = useState([])
+
 
   /* Shop Items call API */
-  const shopItemsList = ()=>{
-    return axios.get(`${server}/product?section=shops`).then((res) => setshopItems(res.data) ).catch(err => console.log(err))
+  const shopItemsList =async()=>{
+    return await axios.get(`${server}/product?section=shops`).then((res) => setshopItems(res.data) ).catch(err => console.log(err))
   }
    /* Product Items call API */
-  const productItemsList = ()=>{
-    return axios.get(`${server}/product?section=flash_deals`).then((res) => setproductItems(res.data) ).catch(err => console.log(err))
+  const productItemsList = async()=>{
+    return await axios.get(`${server}/product?section=flash_deals`).then((res) => setproductItems(res.data) ).catch(err => console.log(err))
   }
-  /*
-   const topCataItemsList = ()=>{
-    return axios.get(`${server}/product?section=top_categories`).then((res) => settopCataItems(res.data) )
-  }
-
-  const newArrivalsItemsList = ()=>{
-    return axios.get(`${server}/product?section=new_arrivals`).then((res) => setnewArrivalsItems(res.data) )
+  
+   const topCataItemsList = async()=>{
+    return await axios.get(`${server}/product?section=top_categories`).then((res) => settopCataItems(res.data) )
   }
 
-  const discountItemsList = ()=>{
-    return axios.get(`${server}/product?section=discounts`).then((res) => setdiscountItems(res.data) )
-  }*/
+  const newArrivalsItemsList = async()=>{
+    return await axios.get(`${server}/product?section=new_arrivals`).then((res) => setnewArrivalsItems(res.data) )
+  }
+
+  const discountItemsList = async ()=>{
+    return await axios.get(`${server}/product?section=discounts`).then((res) => setdiscountItems(res.data) )
+  }
+  // setCartItem(getLocalCartItem)
   useEffect(()=>{
     shopItemsList()
     productItemsList()
-    // topCataItemsList()
-    // newArrivalsItemsList()
-    // discountItemsList()
-  }, [])
+    topCataItemsList()
+    newArrivalsItemsList()
+    discountItemsList()
+    localStorage.setItem("CartItems",JSON.stringify(CartItem))
+  }, [CartItem])
  
 
   const  isAuthenticated  = window.localStorage.getItem("isAuthenticated");
@@ -60,7 +66,8 @@ function App() {
 
 // const {productItems} = Data
   //Step 2 :
-  const [CartItem, setCartItem] = useState([])
+  
+  
 
   //Step 4 :
   const addToCart = (product) => {
@@ -81,20 +88,21 @@ function App() {
         setCartItem(CartItem.map((item) => (item._id === product._id ? { ...productExit, qty: productExit.qty - 1 } : item)))
       }
   }
-
+  
   return (
     <>
       <Router>
         <Header CartItem={CartItem} />
         <Routes>
-          <Route path='/' exact element={<Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems}  />} /> {/* topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems}*/}
+          <Route path='/' exact element={<Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems} />} /> {/* topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems}*/}
           <Route path='/shop' exact element={ <Shop addToCart={addToCart} shopItems={shopItems}/>}/>
           <Route path='/user' exact element={ <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
           <Route path='/cart' exact element={<Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
           <Route path='/login' exact element={!isAuthenticated ? <LoginPage CartItem={CartItem} /> : <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
           <Route path='/register' exact element={<SignupPage CartItem={CartItem} />}/>
           <Route path='/add-product' exact element={isAuthenticated ? <AddProduct CartItem={CartItem} token={token} /> : <LoginPage CartItem={CartItem} />}/>
-          
+          <Route path='/product/:productId' exact element={<ProductDetails productItems={productItems} CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} /> }/>
+          <Route path='*' exact element={<Page404/>} />
         </Routes>
         <Footer />
       </Router>

@@ -2,6 +2,17 @@ import React from "react"
 import "./style.css"
 
 const Cart = ({ CartItem, addToCart, decreaseQty }) => {
+  // const getLocalCartItem = ()=> {
+  //   const getLocalCartItem  = localStorage.getItem("CartItems")
+  //   if(getLocalCartItem === []){
+  //     return []
+  //   }else{
+  //     return JSON.parse(getLocalCartItem)
+  //   }
+  // }
+  // useEffect(()=>{
+  //   CartItem = getLocalCartItem()
+  // }, [])
   // Stpe: 7   calucate total of items
   const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
 
@@ -10,12 +21,12 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
     <>
       <section className='cart-items'>
         <div className='container d_flex'>
-          {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
+          
 
           <div className='cart-details'>
             {CartItem.length === 0 && <h1 className='no-items product'>No Items are add in Cart</h1>}
 
-            {/* yasma hami le cart item lai display garaaxa */}
+           
             {CartItem.map((item) => {
               const productQty = item.price * item.qty
 

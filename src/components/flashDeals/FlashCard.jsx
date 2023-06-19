@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { Link } from "react-router-dom"
 
 const SampleNextArrow = (props) => {
   const { onClick } = props
@@ -51,7 +52,9 @@ const FlashCard = ({ productItems, addToCart }) => {
               <div className='product mtop'>
                 <div className='img'>
                   <span className='discount'>{productItems.discount}% Off</span>
+                  <Link to={`/product/${productItems._id}`}>
                   <img src={productItems.cover} alt='' style={imageWH} />
+                  </Link>
                   <div className='product-like'>
                     <label>{count}</label> <br />
                     <i className='fa-regular fa-heart' onClick={increment}></i>

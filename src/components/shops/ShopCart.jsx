@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 
 const ShopCart = ({ shopItems, addToCart }) => {
   const [count, setCount] = useState(0)
@@ -19,7 +20,9 @@ const ShopCart = ({ shopItems, addToCart }) => {
             <div className='product mtop'>
               <div className='img'>
                 <span className='discount'>{shopItems.discount}% Off</span>
+                <Link to={`/product/${shopItems._id}`}>
                 <img src={shopItems.cover} alt='' style={imageWH} />
+                </Link>
                 <div className='product-like'>
                   <label>{count}</label> <br />
                   <i className='fa-regular fa-heart' onClick={increment}></i>

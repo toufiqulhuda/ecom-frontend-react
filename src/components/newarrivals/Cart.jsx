@@ -1,14 +1,14 @@
 import React from "react"
-import Ndata from "./Ndata"
+// import Ndata from "./Ndata"
 const imageWH = {
   width: "167px",
   height: "167px"
 }
-const Cart = () => {
+const Cart = ({newArrivalsItems}) => {
   return (
     <>
       <div className='content grid product'>
-        {Ndata.map((val, index) => {
+        {newArrivalsItems.map((val, index) => {
           return (
             <div className='box' key={index}>
               <div className='img'>
