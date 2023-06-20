@@ -24,7 +24,7 @@ import { ToastContainer,toast } from "react-toastify";
 function App() {
   const getLocalCartItem = () =>{
     let localStore = localStorage.getItem("CartItem")
-    if(localStore===[]){
+    if(localStore===null){
       return []
     }else{
       return JSON.parse(localStore)
