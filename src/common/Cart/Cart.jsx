@@ -1,9 +1,11 @@
+
 import React from "react"
 import "./style.css"
+// import { ToastContainer,toast } from "react-toastify";
 
 const Cart = ({ CartItem, addToCart, decreaseQty }) => {
   // const getLocalCartItem = ()=> {
-  //   const getLocalCartItem  = localStorage.getItem("CartItems")
+  //   const getLocalCartItem  = localStorage.getItem("CartItem")
   //   if(getLocalCartItem === []){
   //     return []
   //   }else{
@@ -11,7 +13,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
   //   }
   // }
   // useEffect(()=>{
-  //   CartItem = getLocalCartItem()
+  //   getLocalCartItem()
   // }, [])
   // Stpe: 7   calucate total of items
   const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
@@ -50,11 +52,11 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
                     </div>
                     
                     <div className='cartControl d_flex'>
-                      <button className='incCart' onClick={() => addToCart(item)}>
+                      <button className='incCart' onClick={() => {addToCart(item); }}>
                         <i className='fa-solid fa-plus'></i>
                       </button>
                       {item.qty}
-                      <button className='desCart' onClick={() => decreaseQty(item)}>
+                      <button className='desCart' onClick={() => {decreaseQty(item); }}>
                         <i className='fa-solid fa-minus'></i>
                       </button>
                     </div>

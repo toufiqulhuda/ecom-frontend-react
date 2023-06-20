@@ -18,10 +18,21 @@ import { server } from "./server";
 import 'react-toastify/dist/ReactToastify.css';
 import ProductDetails from "./pages/ProductDetails"
 import Page404 from "./pages/Page404"
+import { ToastContainer,toast } from "react-toastify";
 
 
 function App() {
-  const [CartItem, setCartItem] = useState([])
+  const getLocalCartItem = () =>{
+    let localStore = localStorage.getItem("CartItem")
+    if(localStore===[]){
+      return []
+    }else{
+      return JSON.parse(localStore)
+    }
+  }
+  const [isLoading, setLoading] = useState(true)
+  const [CartItem, setCartItem] = useState(getLocalCartItem())
+  
   const [shopItems, setshopItems] = useState([])
   const [productItems, setproductItems] = useState([])
   const [topCataItems, settopCataItems] = useState([])
@@ -39,15 +50,15 @@ function App() {
   }
   
    const topCataItemsList = async()=>{
-    return await axios.get(`${server}/product?section=top_categories`).then((res) => settopCataItems(res.data) )
+    return await axios.get(`${server}/product?section=top_categories`).then((res) => settopCataItems(res.data) ).catch(err => console.log(err))
   }
 
   const newArrivalsItemsList = async()=>{
-    return await axios.get(`${server}/product?section=new_arrivals`).then((res) => setnewArrivalsItems(res.data) )
+    return await axios.get(`${server}/product?section=new_arrivals`).then((res) => setnewArrivalsItems(res.data) ).catch(err => console.log(err))
   }
 
   const discountItemsList = async ()=>{
-    return await axios.get(`${server}/product?section=discounts`).then((res) => setdiscountItems(res.data) )
+    return await axios.get(`${server}/product?section=discounts`).then((res) => setdiscountItems(res.data) ).catch(err => console.log(err))
   }
   // setCartItem(getLocalCartItem)
   useEffect(()=>{
@@ -56,7 +67,8 @@ function App() {
     topCataItemsList()
     newArrivalsItemsList()
     discountItemsList()
-    localStorage.setItem("CartItems",JSON.stringify(CartItem))
+      localStorage.setItem("CartItem",JSON.stringify(CartItem))
+      setLoading(false)
   }, [CartItem])
  
 
@@ -77,6 +89,7 @@ function App() {
     } else {
       setCartItem([...CartItem, { ...product, qty: 1 }])
     }
+    toast.success("A new product has been added to your cart")
   }
 
   // Stpe: 6
@@ -87,6 +100,7 @@ function App() {
       } else {
         setCartItem(CartItem.map((item) => (item._id === product._id ? { ...productExit, qty: productExit.qty - 1 } : item)))
       }
+      toast.error("A product has been deleted from your cart")
   }
   
   return (
@@ -94,17 +108,17 @@ function App() {
       <Router>
         <Header CartItem={CartItem} />
         <Routes>
-          <Route path='/' exact element={<Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems} />} /> {/* topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems}*/}
+          <Route path='/' exact element={<Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems} isLoading={isLoading}/>} /> 
           <Route path='/shop' exact element={ <Shop addToCart={addToCart} shopItems={shopItems}/>}/>
           <Route path='/user' exact element={ <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
           <Route path='/cart' exact element={<Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
-          <Route path='/login' exact element={!isAuthenticated ? <LoginPage CartItem={CartItem} /> : <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
+          <Route path='/login' exact element={!isAuthenticated ? <LoginPage CartItem={CartItem} /> : <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems} />}/>
           <Route path='/register' exact element={<SignupPage CartItem={CartItem} />}/>
           <Route path='/add-product' exact element={isAuthenticated ? <AddProduct CartItem={CartItem} token={token} /> : <LoginPage CartItem={CartItem} />}/>
-          <Route path='/product/:productId' exact element={<ProductDetails productItems={productItems} CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} /> }/>
+          <Route path='/product/:productId' exact element={<ProductDetails productItems={productItems} CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty}  /> }/>
           <Route path='*' exact element={<Page404/>} />
         </Routes>
-        <Footer />
+        <Footer /><ToastContainer/>
       </Router>
     </>
   )

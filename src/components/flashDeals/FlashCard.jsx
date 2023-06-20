@@ -3,6 +3,7 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { Link } from "react-router-dom"
+import Loader from "../Loader/Loader"
 
 const SampleNextArrow = (props) => {
   const { onClick } = props
@@ -24,7 +25,7 @@ const SamplePrevArrow = (props) => {
     </div>
   )
 }
-const FlashCard = ({ productItems, addToCart }) => {
+const FlashCard = ({ productItems, addToCart, isLoading }) => {
   const [count, setCount] = useState(0)
   const increment = () => {
     setCount(count + 1)
@@ -43,8 +44,8 @@ const FlashCard = ({ productItems, addToCart }) => {
     height: "230px"
   }
 
-  return (
-    <>
+  return isLoading  ? (<Loader/>) :(
+    <> 
       <Slider {...settings}>
         {productItems.map((productItems) => {
           return (
@@ -72,7 +73,10 @@ const FlashCard = ({ productItems, addToCart }) => {
                   <div className='price'>
                     <h4>${productItems.price}.00 </h4>
                     
-                    <button onClick={() => addToCart(productItems)}>
+                    <button onClick={() => {
+                      addToCart(productItems) 
+                      
+                      }}>
                       <i className='fa fa-plus'></i>
                     </button>
                   </div>
@@ -82,6 +86,7 @@ const FlashCard = ({ productItems, addToCart }) => {
           )
         })}
       </Slider>
+      
     </>
   )
 }

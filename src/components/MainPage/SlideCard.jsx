@@ -1,10 +1,13 @@
-import React from "react"
-import Sdata from "./Sdata"
+import React, { useEffect,useState } from "react"
+// import Sdata from "./Sdata"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { server } from "../../../src/server"
+import axios from "axios"
+import Loader from "../Loader/Loader"
 
-const SlideCard = () => {
+const SlideCard = ({isLoading}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -19,15 +22,22 @@ const SlideCard = () => {
     width: "300px",
     height: "300px"
   }
-  return (
+  const [SliderItems, setsliderItems] = useState([])
+  const sliderItemsList = async ()=>{
+    return await axios.get(`${server}/product?section=slider`).then((res) => setsliderItems(res.data) )
+  }
+  useEffect(()=>{
+    sliderItemsList()
+  },[SliderItems])
+  return isLoading ? (<Loader/>):(
     <>
       <Slider {...settings}>
-        {Sdata.map((value, index) => {
+        {SliderItems.map((value, index) => {
           return (
             <>
               <div className='box d_flex top' key={index}>
                 <div className='left'>
-                  <h1>{value.title}</h1>
+                  <h1>{value.name}</h1>
                   <p>{value.desc}</p>
                   <button className='btn-primary'>Visit Collections</button>
                 </div>

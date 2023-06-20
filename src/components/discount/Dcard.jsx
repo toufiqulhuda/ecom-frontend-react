@@ -28,7 +28,7 @@ const Dcard = ({discountItems}) => {
                   <img src={value.cover} alt='' style={imageWH} />
                 </div>
                 <h4>{value.name}</h4>
-                <span>{value.price}</span>
+                <span>${value.price}</span>
               </div>
             </>
           )
