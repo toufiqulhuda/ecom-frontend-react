@@ -112,7 +112,7 @@ function App() {
           <Route path='/shop' exact element={ <Shop addToCart={addToCart} shopItems={shopItems}/>}/>
           <Route path='/user' exact element={ <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
           <Route path='/cart' exact element={<Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />}/>
-          <Route path='/login' exact element={!isAuthenticated ? <LoginPage CartItem={CartItem} /> : <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems} />}/>
+          <Route path='/login' exact element={!isAuthenticated ? <LoginPage CartItem={CartItem} /> : <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} topCataItems={topCataItems} newArrivalsItems={newArrivalsItems} discountItems={discountItems} isLoading={isLoading} />}/>
           <Route path='/register' exact element={<SignupPage CartItem={CartItem} />}/>
           <Route path='/add-product' exact element={isAuthenticated ? <AddProduct CartItem={CartItem} token={token} /> : <LoginPage CartItem={CartItem} />}/>
           <Route path='/product/:productId' exact element={<ProductDetails productItems={productItems} CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty}  /> }/>
