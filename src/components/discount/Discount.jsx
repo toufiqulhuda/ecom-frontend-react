@@ -1,9 +1,9 @@
 import React from "react"
 import Dcard from "./Dcard"
-import Loader from "../Loader/Loader"
 
-const Discount = ({discountItems , isLoading}) => {
-  return isLoading  ? (<Loader/>) : (
+
+const Discount = ({discountItems }) => {
+  return (
     <>
       <section className='Discount background NewArrivals'>
         <div className='container'>

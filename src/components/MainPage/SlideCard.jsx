@@ -1,13 +1,13 @@
-import React, { useEffect,useState } from "react"
+import React from "react"
 // import Sdata from "./Sdata"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { server } from "../../../src/server"
-import axios from "axios"
+// import { server } from "../../../src/server"
+// import axios from "axios"
 import Loader from "../Loader/Loader"
 
-const SlideCard = ({isLoading}) => {
+const SlideCard = ({sliderItems}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -22,17 +22,19 @@ const SlideCard = ({isLoading}) => {
     width: "300px",
     height: "300px"
   }
-  const [SliderItems, setsliderItems] = useState([])
-  const sliderItemsList = async ()=>{
-    return await axios.get(`${server}/product?section=slider`).then((res) => setsliderItems(res.data) )
-  }
-  useEffect(()=>{
-    sliderItemsList()
-  },[SliderItems])
-  return isLoading ? (<Loader/>):(
+  // const [SliderItems, setsliderItems] = useState([])
+  // const sliderItemsList = async ()=>{
+  //   return await axios.get(`${server}/product?section=slider`).then((res) => setsliderItems(res.data) )
+  // }
+  // useEffect(()=>{
+  //   alert(isLoading)
+  //   sliderItemsList()
+  // },[SliderItems])
+  return (
     <>
       <Slider {...settings}>
-        {SliderItems.map((value, index) => {
+        {sliderItems.length > 0 ? 
+        sliderItems.map((value, index) => {
           return (
             <>
               <div className='box d_flex top' key={index}>
@@ -47,7 +49,7 @@ const SlideCard = ({isLoading}) => {
               </div>
             </>
           )
-        })}
+        }) : <Loader/>}
       </Slider>
     </>
   )

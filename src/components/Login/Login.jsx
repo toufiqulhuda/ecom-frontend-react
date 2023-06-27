@@ -1,13 +1,13 @@
 import { React, useState } from "react";
 // import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../styles/styles";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
 import { ToastContainer,toast } from "react-toastify";
 
 const Login = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isDisabled, setDisabled] = useState(false);
@@ -25,7 +25,7 @@ const Login = () => {
             "email": email, 
             "password": password
           });
-          console.log(response);
+          // console.log(response);
           if(response.status === 200){
             
             window.localStorage.setItem("token",response.data.token)
@@ -35,15 +35,37 @@ const Login = () => {
             setPassword("")
             // setDisabled("")
             // setBtn("")
-            toast.success("Login Success!");
-            setTimeout(() => { window.location.reload(true) }, 2000);
+            
+            toast.success("Login Success!",{position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"});
+            setTimeout(() =>navigate(-1), 2000);
           }else{
-            toast.error(response.data.message);
+            toast.error(response.data.message,{position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"});
             setBtn("btn-primary")
             setDisabled(false)
           }
         } catch (error) {
-          toast.error(error.response.data.message);
+          toast.error(error.response.data.message,{position: "bottom-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light"});
           setBtn("btn-primary")
           setDisabled(false)
         }

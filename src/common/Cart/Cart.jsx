@@ -1,22 +1,67 @@
 
 import React from "react"
 import "./style.css"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
+// import { useInsertionEffect } from "react"
 // import { ToastContainer,toast } from "react-toastify";
-
-const Cart = ({ CartItem, addToCart, decreaseQty }) => {
-  // const getLocalCartItem = ()=> {
-  //   const getLocalCartItem  = localStorage.getItem("CartItem")
-  //   if(getLocalCartItem === []){
-  //     return []
-  //   }else{
-  //     return JSON.parse(getLocalCartItem)
-  //   }
-  // }
-  // useEffect(()=>{
-  //   getLocalCartItem()
-  // }, [])
-  // Stpe: 7   calucate total of items
+// const isCart = true;
+const Cart = ({ CartItem, addToCart, decreaseQty, isAuthenticated }) => {
+// const [checkOutBtn, setCheckOutBtn] = useState(false)
+  const navigate = useNavigate();
   const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
+  // useEffect(()=>{
+    
+  //   handleClick()
+  //   setCheckOutBtn(false)
+  // })
+  const handleClick = ()=>{
+    
+    if(isAuthenticated === "true"){
+      const localStore = JSON.parse(localStorage.getItem("CartItem"))
+      // alert(typeof localStore)
+      if( Object.keys(localStore).length === 0){
+        toast.error("No Items are add in Cart",{position: "bottom-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light"});
+        // isCart = false;
+      }else{
+        
+        localStorage.setItem("CartItem", JSON.stringify([]));
+        // localStorage.removeItem('CartItem');
+        toast.success("Order place successfully",{position: "bottom-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light"});
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+        // isCart = false;
+      }
+    }else{
+      toast.error("Sorry! you have to login first",{position: "bottom-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light"});
+      setInterval(() => {
+        navigate("/login");
+      }, 2000);
+    }
+  }
+  // const checkoutDesable ={"display": "none"}
 
   // prodcut qty total
   return (
@@ -31,9 +76,8 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
            
             {CartItem.map((item) => {
               const productQty = item.price * item.qty
-
               return (
-                <div className='cart-list product d_flex' key={item.id}>
+                <div className='cart-list product d_flex' key={item._id}>
                   <div className='img'>
                     <img src={item.cover} alt='' />
                   </div>
@@ -56,6 +100,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
                         <i className='fa-solid fa-plus'></i>
                       </button>
                       {item.qty}
+                                           
                       <button className='desCart' onClick={() => {decreaseQty(item); }}>
                         <i className='fa-solid fa-minus'></i>
                       </button>
@@ -69,12 +114,15 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
           </div>
 
           <div className='cart-total product'>
-            <h2>Cart Summary</h2>
+            <h2>Order Summary</h2>
             <div className=' d_flex'>
               <h4>Total Price :</h4>
               <h3>${totalPrice}.00</h3>
             </div>
+            <h2></h2>
+            <button className="btn-primary" style={{"width":"100%"}} onClick={()=>{handleClick()} }>Checkout</button>
           </div>
+          
         </div>
       </section>
     </>

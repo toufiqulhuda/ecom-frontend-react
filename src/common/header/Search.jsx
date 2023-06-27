@@ -14,7 +14,14 @@ const Search = ({ CartItem }) => {
   const logout = () => {
     localStorage.clear(); 
     sessionStorage.clear();
-    toast.success("You've been signed out!");
+    toast.success("You've been signed out!",{position: "bottom-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light"});
     setTimeout(() => { window.location.href = '/' }, 2000);
     
   };

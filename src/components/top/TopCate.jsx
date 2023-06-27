@@ -1,10 +1,10 @@
 import React from "react"
 import "./style.css"
 import TopCart from "./TopCart"
-import Loader from "../Loader/Loader"
 
-const TopCate = ({topCataItems, isLoading}) => {
-  return isLoading  ? (<Loader/>) : (
+
+const TopCate = ({topCataItems}) => {
+  return  (
     <>
       <section className='TopCate background'>
         <div className='container'>

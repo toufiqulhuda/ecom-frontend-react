@@ -8,22 +8,7 @@ import {useParams} from "react-router-dom"
 const ProductDetails = ({productItems, addToCart, CartItem}) => {
     const {productId} = useParams()
     const thisProduct = productItems.find(item => item._id === productId)
-    // const [thisProduct, setthisProduct] = useState([])
-    // setthisProduct(productItems.find((item) => item._id === _id))
-    // const productExit = CartItem.find((item) => item._id === product._id)
     
-    // const [thisProduct,setthisProduct ]= useState([])
-    // const getThisProduct = async()=>{
-    //     if(thisProduct === []){
-    //         return await axios.get(`${server}/product?_id=${_id}`).then((res) => setthisProduct(res.data) ).catch(err => console.log(err))
-    //     }else{
-    //         return setthisProduct(productItems.find((item) => item._id === _id)) 
-    //     }
-        
-    //   }
-    // useEffect(()=>{
-    //     getThisProduct()
-    // },[thisProduct])
     const imageWH = {
         "width": "500px",
         "height": "500px",

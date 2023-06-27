@@ -3,13 +3,13 @@ import Categories from "./Categories"
 import "./Home.css"
 import SliderHome from "./Slider"
 
-const Home = ({isLoading}) => {
+const Home = ({sliderItems}) => {
   return (
     <>
       <section className='home'>
         <div className='container d_flex'>
           <Categories />
-          <SliderHome isLoading={isLoading} />
+          <SliderHome  sliderItems={sliderItems} />
         </div>
       </section>
     </>

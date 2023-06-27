@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 // import Ddata from "./Ddata"
 import "../newarrivals/style.css"
+import Loader from "../Loader/Loader"
 
 const Dcard = ({discountItems}) => {
   const settings = {
@@ -20,7 +21,8 @@ const Dcard = ({discountItems}) => {
   return (
     <>
       <Slider {...settings}>
-        {discountItems.map((value, index) => {
+        {discountItems.length > 0 ?
+        discountItems.map((value, index) => {
           return (
             <>
               <div className='box product' key={index}>
@@ -32,7 +34,7 @@ const Dcard = ({discountItems}) => {
               </div>
             </>
           )
-        })}
+        }): <Loader/>}
       </Slider>
     </>
   )

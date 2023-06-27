@@ -2,12 +2,12 @@ import React from "react"
 import SlideCard from "./SlideCard"
 
 
-const SliderHome = ({isLoading}) => {
+const SliderHome = ({sliderItems}) => {
   return (
     <>
       <section className='homeSlide contentWidth'>
         <div className='container'>
-          <SlideCard isLoading={isLoading}/>
+          <SlideCard sliderItems={sliderItems}/>
         </div>
       </section>
     </>

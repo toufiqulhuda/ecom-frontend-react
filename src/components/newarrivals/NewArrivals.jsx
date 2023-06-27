@@ -1,10 +1,10 @@
 import React from "react"
 import Cart from "./Cart"
 import "./style.css"
-import Loader from "../Loader/Loader"
 
-const NewArrivals = ({newArrivalsItems, isLoading}) => {
-  return isLoading  ? (<Loader/>) : (
+
+const NewArrivals = ({newArrivalsItems}) => {
+  return (
     <>
       <section className='NewArrivals background'>
         <div className='container'>

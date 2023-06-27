@@ -2,6 +2,7 @@ import React from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import Loader from "../Loader/Loader"
 // import Tdata from "./Tdata"
 
 const TopCart = ({topCataItems}) => {
@@ -19,7 +20,8 @@ const TopCart = ({topCataItems}) => {
   return (
     <>
       <Slider {...settings}>
-        {topCataItems.map((value, index) => {
+        { topCataItems.length > 0 ?
+        topCataItems.map((value, index) => {
           return (
             <>
               <div className='box product' key={index}>
@@ -33,7 +35,7 @@ const TopCart = ({topCataItems}) => {
               </div>
             </>
           )
-        })}
+        }) : <Loader/>}
       </Slider>
     </>
   )

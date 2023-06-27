@@ -59,16 +59,37 @@ let [Btn, setBtn] = useState("btn-primary");
             setDrand("")
             setSection(sectionOptions[0].value)
             
-            toast.success("Product added Successfully");
+            toast.success("Product added Successfully",{position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"});
             setTimeout(() => { window.location.href = '/add-product' }, 2000);
             
           }else{
-            toast.error(response.data.message);
+            toast.error(response.data.message,{position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"});
             setBtn("btn-primary")
             setDisabled(false)
           }
         } catch (error) {
-          toast.error(error.response.data.message);
+          toast.error(error.response.data.message,{position: "bottom-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light"});
           setBtn("btn-primary")
           setDisabled(false)
         }

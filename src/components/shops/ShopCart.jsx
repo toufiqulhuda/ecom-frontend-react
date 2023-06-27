@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import Loader from "../Loader/Loader"
 
 const ShopCart = ({ shopItems, addToCart }) => {
   const [count, setCount] = useState(0)
@@ -48,7 +49,7 @@ const ShopCart = ({ shopItems, addToCart }) => {
             </div>
           </div>
         )
-      }) : `No data fround`
+      }) : <Loader/>
       
       }
     </>

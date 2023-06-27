@@ -12,7 +12,7 @@
   width: 30%;
   margin-top: 30px;
   margin-left: 30px;
-  height: 130px;
+  /* height: 130px; */
 }
 .cart-list {
   background: white;
@@ -93,4 +93,18 @@
   font-size: 18px;
   margin-top: 30px;
   height: 130px;
+}
+.cart-total button {
+  width: 100%;
+}
+.cart-total .divider {
+  font-size: 18px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgb(3 0 71 / 9%);
+  padding-bottom: 10px;
+}
+
+
+.disable-link {
+    pointer-events: none;
 }

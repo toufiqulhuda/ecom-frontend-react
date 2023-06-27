@@ -1,8 +1,5 @@
 import { React, useState } from "react";
-// import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-// import styles from "../styles/styles";
 import { useNavigate, Link } from "react-router-dom";
-// import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
 import { server } from "../../server";
 import { ToastContainer,toast } from "react-toastify";
@@ -42,12 +39,26 @@ const Singup = () => {
             toast.success("Signup Success!");
             setTimeout(() => { navigate("/login") }, 2000);
           }else{
-            toast.error(response.data.message);
+            toast.error(response.data.message,{position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"});
             setBtn("btn-primary")
             setDisabled(false)
           }
         } catch (error) {
-          toast.error(error.response.data.message);
+          toast.error(error.response.data.message,{position: "bottom-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light"});
           setBtn("btn-primary")
           setDisabled(false)
         }

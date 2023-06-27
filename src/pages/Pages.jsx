@@ -8,15 +8,15 @@ import Shop from "../components/shops/Shop"
 import Annocument from "../components/annocument/Annocument"
 import Wrapper from "../components/wrapper/Wrapper"
 
-const Pages = ({ productItems, addToCart, CartItem, shopItems, topCataItems, newArrivalsItems, discountItems , isLoading}) => {
+const Pages = ({ productItems, addToCart, CartItem, shopItems, topCataItems, newArrivalsItems, discountItems , sliderItems}) => {
   return (
     <>
-      <Home CartItem={CartItem} isLoading={isLoading} />
-      <FlashDeals productItems={productItems} addToCart={addToCart} isLoading={isLoading} />
-      <TopCate topCataItems={topCataItems} isLoading={isLoading} />
-      <NewArrivals  newArrivalsItems={newArrivalsItems} isLoading={isLoading}/>
-      <Discount discountItems={discountItems} isLoading={isLoading}/>
-      <Shop shopItems={shopItems} addToCart={addToCart} isLoading={isLoading} />
+      <Home CartItem={CartItem} sliderItems={sliderItems} />
+      <FlashDeals productItems={productItems} addToCart={addToCart}  />
+      <TopCate topCataItems={topCataItems}  />
+      <NewArrivals  newArrivalsItems={newArrivalsItems} />
+      <Discount discountItems={discountItems} />
+      <Shop shopItems={shopItems} addToCart={addToCart}  />
       <Annocument />
       <Wrapper />
     </>
