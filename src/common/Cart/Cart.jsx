@@ -3,6 +3,8 @@ import React from "react"
 import "./style.css"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import axios from "axios";
+import { server } from "../../server";
 // import { useInsertionEffect } from "react"
 // import { ToastContainer,toast } from "react-toastify";
 // const isCart = true;
@@ -10,16 +12,51 @@ const Cart = ({ CartItem, addToCart, decreaseQty, isAuthenticated }) => {
 // const [checkOutBtn, setCheckOutBtn] = useState(false)
   const navigate = useNavigate();
   const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
+
+  const PostOrder = async (userId,token,items,bill)=>{
+    try {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+    const response = await axios.post(`${server}/order/648cb873d37c96fb4eba284a`,
+    {
+      items,
+      bill
+    },{headers: headers}
+    )
+    if(response.status === 201){
+      toast.success(`#${response.data._id} Order place successfully`,{position: "bottom-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light"});
+    }
+  } catch (error) {
+    toast.error(error.response.data.message,{position: "bottom-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light"});
+  }
+  }
   // useEffect(()=>{
     
   //   handleClick()
   //   setCheckOutBtn(false)
   // })
   const handleClick = ()=>{
+    const localStore = JSON.parse(localStorage.getItem("CartItem"))
+    const userId = window.localStorage.getItem("userId")
+    const  token  = window.localStorage.getItem("token");
     
     if(isAuthenticated === "true"){
-      const localStore = JSON.parse(localStorage.getItem("CartItem"))
-      // alert(typeof localStore)
       if( Object.keys(localStore).length === 0){
         toast.error("No Items are add in Cart",{position: "bottom-right",
         autoClose: 1000,
@@ -29,19 +66,24 @@ const Cart = ({ CartItem, addToCart, decreaseQty, isAuthenticated }) => {
         draggable: true,
         progress: undefined,
         theme: "light"});
-        // isCart = false;
       }else{
-        
+        let localData = localStore.map(({_id,name,qty,price}) => ({
+          productId: _id,
+          name,
+          quantity:qty,
+          price:parseInt(price)}))
+        PostOrder(userId,token,localData,totalPrice)
+        // return
         localStorage.setItem("CartItem", JSON.stringify([]));
         // localStorage.removeItem('CartItem');
-        toast.success("Order place successfully",{position: "bottom-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light"});
+        // toast.success("Order place successfully",{position: "bottom-right",
+        // autoClose: 1000,
+        // hideProgressBar: false,
+        // closeOnClick: true,
+        // pauseOnHover: true,
+        // draggable: true,
+        // progress: undefined,
+        // theme: "light"});
         setTimeout(() => {
           window.location.reload()
         }, 2000);
@@ -72,8 +114,6 @@ const Cart = ({ CartItem, addToCart, decreaseQty, isAuthenticated }) => {
 
           <div className='cart-details'>
             {CartItem.length === 0 && <h1 className='no-items product'>No Items are add in Cart</h1>}
-
-           
             {CartItem.map((item) => {
               const productQty = item.price * item.qty
               return (
