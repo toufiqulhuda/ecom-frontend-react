@@ -73,17 +73,8 @@ const Cart = ({ CartItem, addToCart, decreaseQty, isAuthenticated }) => {
           quantity:qty,
           price:parseInt(price)}))
         PostOrder(userId,token,localData,totalPrice)
-        // return
+
         localStorage.setItem("CartItem", JSON.stringify([]));
-        // localStorage.removeItem('CartItem');
-        // toast.success("Order place successfully",{position: "bottom-right",
-        // autoClose: 1000,
-        // hideProgressBar: false,
-        // closeOnClick: true,
-        // pauseOnHover: true,
-        // draggable: true,
-        // progress: undefined,
-        // theme: "light"});
         setTimeout(() => {
           window.location.reload()
         }, 2000);

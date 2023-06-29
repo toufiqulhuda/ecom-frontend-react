@@ -9,7 +9,7 @@ const Cart = ({newArrivalsItems}) => {
   return (
     <>
       <div className='content grid product'>
-        { newArrivalsItems.lenght > 0 ?
+        { newArrivalsItems.length > 0 ?
         newArrivalsItems.map((val, index) => {
           return (
             <div className='box' key={index}>
