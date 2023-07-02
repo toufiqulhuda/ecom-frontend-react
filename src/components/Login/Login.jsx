@@ -29,7 +29,7 @@ const Login = () => {
           if(response.status === 200){
             
             window.localStorage.setItem("token",response.data.token)
-            window.localStorage.setItem("userid",response.data.user._id)
+            window.localStorage.setItem("userid",JSON.stringify(response.data.user._id))
             window.localStorage.setItem("isAuthenticated",true)
             setEmail("")
             setPassword("")

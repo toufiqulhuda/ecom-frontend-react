@@ -1,5 +1,5 @@
 
-import React from "react"
+import {React,useState} from "react"
 import "./style.css"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
@@ -12,14 +12,15 @@ const Cart = ({ CartItem, addToCart, decreaseQty, isAuthenticated }) => {
 // const [checkOutBtn, setCheckOutBtn] = useState(false)
   const navigate = useNavigate();
   const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
-
+  const [isDisabled, setDisabled] = useState(false);
+  const [Btn, setBtn] = useState("btn-primary");
   const PostOrder = async (userId,token,items,bill)=>{
     try {
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     }
-    const response = await axios.post(`${server}/order/648cb873d37c96fb4eba284a`,
+    const response = await axios.post(`${server}/order/${userId}`,
     {
       items,
       bill
@@ -44,6 +45,8 @@ const Cart = ({ CartItem, addToCart, decreaseQty, isAuthenticated }) => {
           draggable: true,
           progress: undefined,
           theme: "light"});
+          setBtn("btn-primary")
+          setDisabled(false)
   }
   }
   // useEffect(()=>{
@@ -52,10 +55,12 @@ const Cart = ({ CartItem, addToCart, decreaseQty, isAuthenticated }) => {
   //   setCheckOutBtn(false)
   // })
   const handleClick = ()=>{
+    setDisabled(true)
+    setBtn("btn-secondary")
     const localStore = JSON.parse(localStorage.getItem("CartItem"))
-    const userId = window.localStorage.getItem("userId")
-    const  token  = window.localStorage.getItem("token");
-    
+    const userId = window.localStorage.getItem("userid").replace(/"/gi, "")
+    const token  = window.localStorage.getItem("token");
+  
     if(isAuthenticated === "true"){
       if( Object.keys(localStore).length === 0){
         toast.error("No Items are add in Cart",{position: "bottom-right",
@@ -151,7 +156,11 @@ const Cart = ({ CartItem, addToCart, decreaseQty, isAuthenticated }) => {
               <h3>${totalPrice}.00</h3>
             </div>
             <h2></h2>
-            <button className="btn-primary" style={{"width":"100%"}} onClick={()=>{handleClick()} }>Checkout</button>
+            <button 
+            disabled={isDisabled}
+                className={Btn} 
+                style={{"width":"100%"}} 
+                onClick={()=>{handleClick()} }>Checkout</button>
           </div>
           
         </div>
