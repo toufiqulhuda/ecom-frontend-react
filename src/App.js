@@ -19,6 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProductDetails from "./pages/ProductDetails"
 import Page404 from "./pages/Page404"
 import { ToastContainer,toast } from "react-toastify";
+import Contact from "./pages/Contact"
 
 
 function App() {
@@ -30,15 +31,7 @@ function App() {
       return JSON.parse(localStore)
     }
   }
-  // const getisAuthenticated=()=>{
-  //   const  getLocalStorage  = window.localStorage.getItem("isAuthenticated");
-  //   if(getLocalStorage){
-  //       setisAuthenticated(true)
-  //   }else{
-  //     setisAuthenticated(false)
-  //   }
-  // } 
-  // const [isLoading, setLoading] = useState(true)
+  
   const [CartItem, setCartItem] = useState(getLocalCartItem())
   // const [isAuthenticated, setisAuthenticated] = useState(getisAuthenticated())
   
@@ -144,6 +137,7 @@ function App() {
           <Route path='/register' exact element={<SignupPage CartItem={CartItem} />}/>
           <Route path='/add-product' exact element={isAuthenticated ? <AddProduct CartItem={CartItem} token={token} /> : <LoginPage CartItem={CartItem} />}/>
           <Route path='/product/:productId' exact element={<ProductDetails productItems={productItems} CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty}  /> }/>
+          <Route path='/contact' exact element={isAuthenticated ?<Contact CartItem={CartItem} token={token}/>:<LoginPage CartItem={CartItem} />} />
           <Route path='*' exact element={<Page404/>} />
         </Routes>
         <Footer /><ToastContainer/>
